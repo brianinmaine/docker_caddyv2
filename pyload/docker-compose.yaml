@@ -1,0 +1,21 @@
+version: "2.1"
+services:
+  pyload:
+    image: linuxserver/pyload
+    container_name: pyload
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/NewYork
+    volumes:
+      - ./config:/config
+      - /mnt/dietpi_userdata/files/downloads:/downloads
+    ports:
+      - 8000:8000
+      - 7227:7227 #optional
+    restart: unless-stopped
+networks:
+  default:
+    external:
+      name: caddy_net
+

@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+    namexxx:
+        container_name: namexxx
+
+
+
+        env_file: .env
+        restart: unless-stopped
+networks:
+  default:
+    external:
+      name: $DOCKER_MY_NETWORK

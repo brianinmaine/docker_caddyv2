@@ -1,0 +1,24 @@
+version: "2.1"
+services:
+  jellyfin:
+    image: linuxserver/jellyfin
+    container_name: jellyfin
+    volumes:
+      - ./config:/config
+      - /mnt/dietpi_userdata/files/tvseries:/data/tvshows
+      - /mnt/dietpi_userdata/files/movies:/data/movies
+      - /mnt/dietpi_userdata/files/music:/data/music
+      - /mnt/dietpi_userdata/files/books:/data/books
+      - /opt/vc/lib:/opt/vc/lib #optional
+    ports:
+      - 8096:8096
+      - 8920:8920 #optional
+    devices:
+      - /dev/dri:/dev/dri #optional
+      - /dev/video0:/dev/video0 #optional
+    restart: unless-stopped
+    env_file: .env
+networks:
+  default:
+    external:
+      name: $DOCKER_MY_NETWORK

@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+    droppy:
+        container_name: droppy
+        volumes:
+            - './config:/config'
+            - '/mnt/dietpi_userdata/files:/files'
+        ports:
+            - '8989:8989'
+        image: silverwind/droppy
+networks:
+  default:
+    external:
+      name: caddy_net
+
+

@@ -1,0 +1,47 @@
+{$MY_DOMAIN} {
+  tls example@gmail.com
+  root * /var/www
+# this has to mounted as a volume by caddy in the docker-compose.yaml
+  file_server browse
+}
+
+deemix.{$MY_DOMAIN} {
+  reverse_proxy Deemix:6595
+#  basicauth {
+# 
+#  }
+}
+
+filebrowser.{$MY_DOMAIN} {
+  reverse_proxy filebrowser:8090
+}
+
+plex.{MY_DOMAIN} {
+  reverse_proxy plex:32400 {
+  }
+  encode gzip
+  header {
+    Strict-Transport-Security max-age=31536000;
+    X-Content-Type-Options nosniff
+    X-Frame-Options DENY
+    Referrer-Policy no-referrer-when-downgrade
+    X-XSS-Protection 1
+  }
+}
+
+jellyfin.{$MY_DOMAIN} {
+  reverse_proxy jellyfin:8096
+}
+
+droppy.{$MY_DOMAIN} {
+  reverse_proxy droppy:8989
+}
+
+calibre.{$MY_DOMAIN} {
+  reverse_proxy calibre:8083
+}
+
+pyload.{$MY_DOMAIN} {
+  reverse_proxy pyload:8000
+}
+

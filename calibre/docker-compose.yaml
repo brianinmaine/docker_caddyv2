@@ -1,0 +1,21 @@
+version: "2.1"
+services:
+  calibre-web:
+    image: linuxserver/calibre-web
+    container_name: calibre
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/NewYork
+      - DOCKER_MODS=linuxserver/calibre-web:calibre
+    volumes:
+      - ./config:/config
+      - /mnt/dietpi_userdata/files/books:/books
+    ports:
+      - 8083:8083
+    restart: unless-stopped
+networks:
+  default:
+    external:
+      name: caddy_net
+
